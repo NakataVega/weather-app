@@ -21,6 +21,6 @@ test("CityInfo render", async () => {
   const cityAndCountryComponents = await findAllByRole("heading")
 
   //Si estas condiciones se cumplen, va a ser PASS
-  expect(cityAndCountryComponents[0]).toHaveTextContent("Guadalajara")
+  expect(cityAndCountryComponents[0]).toHaveTextContent("Guada")
   expect(cityAndCountryComponents[1]).toHaveTextContent("Mexico")
 })
