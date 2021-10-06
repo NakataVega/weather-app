@@ -14,7 +14,7 @@ test("CityInfo render", async () => {
   Vamos a utilizar findAllByRole para 'consultar' a nuestro componente
   Vamos a analizar su estado en el Assert
   */
-  const { findAllByRole } = render(<CityInfo city={city} country={country}></CityInfo>)
+  const { findAllByRole } = render(<CityInfo city={city} country={country}/>)
   //Assert
 
   //Buscar todos los componentes que sean heading -> h1, h2, ... en un array de componentes
