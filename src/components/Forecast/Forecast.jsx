@@ -1,13 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
-import ForecastItem from '../../ForecastItem'
+import ForecastItem from './../ForecastItem'
 import {validValues} from './../IconState'
 
 const renderForecastItem = forecast => {
   const { weekDay, hour, state, temperature } = forecast
+  //Tenemos que poner un identificador unico
+  //Vamos a poner una "marca" para encontrar cada iten (ForecastItem) con data-testid
   return (
-    <Grid item key = {`${weekDay}${hour}`}>
+    <Grid 
+      data-testid = "forecast-item-container"
+      item 
+      key = {`${weekDay}${hour}`}>
       <ForecastItem 
         hour = {hour}
         weekDay = {weekDay}
@@ -20,7 +25,7 @@ const renderForecastItem = forecast => {
 
 const Forecast = ({forecastItemList}) => {
   return (
-    <Grid justifyContent="flex-start" alignItems="center">
+    <Grid container justifyContent="center" alignItems="center">
       {
         forecastItemList.map(forecast => renderForecastItem(forecast))
       }
