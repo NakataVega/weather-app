@@ -14,7 +14,7 @@ test("CityList render", async () => {
   //AAA Arrange Act Assert
   const { findAllByRole } = render(<CityList cities={cities} onClickCity={fnClickOnItem}/>)
 
-  const items = await findAllByRole("listitem") //Es el rol asignado a <li>
+  const items = await findAllByRole("button") //Es el rol asignado a <li>
 
   expect(items).toHaveLength(4)
 })
@@ -26,7 +26,7 @@ test("CityList click on item", async () => {
 
   const {findAllByRole} = render(<CityList cities={cities} onClickCity={fnClickOnItem} />)
 
-  const items = await findAllByRole("listitem")
+  const items = await findAllByRole("button")
 
 
   //fireEvent para simular la accion (es parte de testing library)
