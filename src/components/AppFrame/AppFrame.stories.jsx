@@ -10,7 +10,7 @@ export default {
 export const AppFrameExample = () => (
   <Router>
     <AppFrame>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi quas voluptatum atque praesentium debitis assumenda voluptates iste optio minima inventore. Natus nobis hic incidunt esse aliquam ut cum eveniet reprehenderit?
+      
     </AppFrame>
   </Router>
 )
