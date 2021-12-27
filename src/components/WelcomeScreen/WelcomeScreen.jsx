@@ -26,7 +26,7 @@ const WelcomeScreen = ({children}) => {
     //Al salir de la pantalla debemos detener el efecto
     // y des-asociar todos los recursos (div + vanta effect)
     return () => {
-      //Dentra de esta funcion se va a realizar la tarea de destruir los recursos
+      //Dentro de esta funcion se va a realizar la tarea de destruir los recursos
       //tomados por vanta
       if(vanta){
         vanta.destroy()
@@ -36,8 +36,8 @@ const WelcomeScreen = ({children}) => {
   }, [vanta])
 
   return (
-    <div ref={myRefDiv}>
-      WelcomeScreen
+    <div ref={myRefDiv} className='full'>
+      {children}
     </div>
   )
 }
