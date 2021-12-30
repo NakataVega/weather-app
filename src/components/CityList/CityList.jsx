@@ -36,7 +36,7 @@ const CityList = ({cities, onClickCity}) => {
   const [allWeather, setAllWeather] = useState({})
 
   useEffect(() => {
-    const setWeather = (city, country) => { 
+    const setWeather = (city, country) => {
       const apikey = "989b01fae952aa5ac734a6bbf1cfbf6b"
       const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}` 
       axios.get(url).then(response => {
@@ -59,7 +59,7 @@ const CityList = ({cities, onClickCity}) => {
     }
 
     cities.forEach( ({city, country})  => {
-      setWeather(city)
+      setWeather(city, country)
     })
 
   }, [cities])
