@@ -36,12 +36,12 @@ const CityList = ({cities, onClickCity}) => {
   const [allWeather, setAllWeather] = useState({})
 
   useEffect(() => {
-    const setWeather = (city, country) => {
+    const setWeather = (city, country, countryCode) => {
       const apikey = "989b01fae952aa5ac734a6bbf1cfbf6b"
-      const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}` 
+      const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&appid=${apikey}` 
       axios.get(url).then(response => {
         const {data} = response
-        const temperature = data.main.temp
+        const temperature = (data.main.temp - 273.15).toFixed(1)
         const state = "sunny"
         const propName = `${city}-${country}` // Ej: [Guadalajara-Mexico]
         const propValue = { temperature, state} //Ej: {temperature: 10, state:"sunny"}
@@ -58,8 +58,8 @@ const CityList = ({cities, onClickCity}) => {
       
     }
 
-    cities.forEach( ({city, country})  => {
-      setWeather(city, country)
+    cities.forEach( ({city, country, countryCode})  => {
+      setWeather(city, country, countryCode)
     })
 
   }, [cities])
@@ -79,6 +79,7 @@ CityList.propTypes = {
     PropTypes.shape({
       city: PropTypes.string.isRequired,
       country: PropTypes.string.isRequired,
+      countryCode: PropTypes.string.isRequired,
     })
   ).isRequired,
   onClickCity: PropTypes.func.isRequired,
