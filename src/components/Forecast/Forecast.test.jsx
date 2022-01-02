@@ -3,11 +3,11 @@ import Forecast from './Forecast'
 import { render } from '@testing-library/react'
 
 const forecastItemList = [
-  {hour: 18, state:"sunny", temperature: 17, weekDay:"Jueves"},
-  {hour: 6, state:"cloud", temperature: 12, weekDay:"Viernes"},
+  {hour: 18, state:"clear", temperature: 17, weekDay:"Jueves"},
+  {hour: 6, state:"thunderstorm", temperature: 12, weekDay:"Viernes"},
   {hour: 15, state:"rain", temperature: 15, weekDay:"Sabado"},
   {hour: 11, state:"fog", temperature: 21, weekDay:"Domingo"},
-  {hour: 11, state:"cloudy", temperature: 23, weekDay:"Lunes"},
+  {hour: 11, state:"clouds", temperature: 23, weekDay:"Lunes"},
 ]
 
 

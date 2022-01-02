@@ -12,7 +12,7 @@ const CityPage = () => {
 
   const city = "Guadalajara"
   const country = "México"
-  const state = "cloudy"
+  const state = "clear"
   const temperature = 19
   const humidity = 43
   const wind = 12
@@ -51,11 +51,11 @@ const CityPage = () => {
   ]
 
   const forecastItemList = [
-    {hour: 18, state:"sunny", temperature: 17, weekDay:"Jueves"},
-    {hour: 6, state:"cloud", temperature: 12, weekDay:"Viernes"},
+    {hour: 18, state:"clear", temperature: 17, weekDay:"Jueves"},
+    {hour: 6, state:"clouds", temperature: 12, weekDay:"Viernes"},
     {hour: 15, state:"rain", temperature: 15, weekDay:"Sabado"},
     {hour: 11, state:"fog", temperature: 21, weekDay:"Domingo"},
-    {hour: 11, state:"cloudy", temperature: 23, weekDay:"Lunes"},
+    {hour: 11, state:"thunderstorm", temperature: 23, weekDay:"Lunes"},
   ]
 
   return (

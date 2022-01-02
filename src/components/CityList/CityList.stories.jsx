@@ -8,10 +8,11 @@ export default {
 }
 
 const cities = [
-  {city:"Guadalajara", country:"Mexico"},
-  {city:"New York City", country:"United States"},
-  {city:"Amsterdam", country:"Nederlands"},
-  {city:"Madrid", country:"Spain"}
+  {city:"Guadalajara", country:"Mexico", countryCode:"MX"},
+  {city:"New York City", country:"United States", countryCode:"US"},
+  {city:"Amsterdam", country:"Nederlands", countryCode:"NL"},
+  {city:"Madrid", country:"Spain", countryCode:"ES"},
+  {city:"Praga", country:"The Czech Republic", countryCode:"CZ"}
 ]
 
 export const CityListExample = () => <CityList cities={cities} onClickCity={action("Click en city")} />

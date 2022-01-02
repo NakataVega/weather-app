@@ -3,10 +3,11 @@ import { render, fireEvent } from '@testing-library/react'
 import CityList from './CityList' //SUT: System under test
 
 const cities = [
-  {city:"Guadalajara", country:"Mexico"},
-  {city:"New York City", country:"United States"},
-  {city:"Amsterdam", country:"Nederlands"},
-  {city:"Madrid", country:"Spain"}
+  {city:"Guadalajara", country:"Mexico", countryCode:"MX"},
+  {city:"New York City", country:"United States", countryCode:"US"},
+  {city:"Amsterdam", country:"Nederlands", countryCode:"NL"},
+  {city:"Madrid", country:"Spain", countryCode:"ES"},
+  {city:"Praga", country:"The Czech Republic", countryCode:"CZ"}
 ]
 
 test("CityList render", async () => {
@@ -16,7 +17,7 @@ test("CityList render", async () => {
 
   const items = await findAllByRole("button") //Es el rol asignado a <li>
 
-  expect(items).toHaveLength(4)
+  expect(items).toHaveLength(5)
 })
 
 test("CityList click on item", async () => {

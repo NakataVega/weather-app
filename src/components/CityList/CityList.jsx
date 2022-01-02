@@ -7,8 +7,6 @@ import ListItem from '@material-ui/core/ListItem'
 import CityInfo from './../CityInfo'
 import Weather from './../Weather'
 
-
-
 //renderCityAndCountry se va a convertir en una funcion que retorna otra funcion
 const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
   const {city, country} = cityAndCountry
@@ -39,20 +37,18 @@ const CityList = ({cities, onClickCity}) => {
     const setWeather = (city, country, countryCode) => {
       const apikey = "989b01fae952aa5ac734a6bbf1cfbf6b"
       const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&appid=${apikey}` 
-      axios.get(url).then(response => {
+      axios.get(url).then((response) => {
         const {data} = response
-        const temperature = (data.main.temp - 273.15).toFixed(1)
-        const state = "sunny"
+        const temperature = parseFloat((data.main.temp - 273.15).toFixed(1))
+        const state = data.weather[0].main.toLowerCase()
         const propName = `${city}-${country}` // Ej: [Guadalajara-Mexico]
         const propValue = { temperature, state} //Ej: {temperature: 10, state:"sunny"}
         
 
 
-        setAllWeather(allWeather => {
-          const result = {...allWeather, [propName]: propValue }
-          console.log("allWeather [result]", result)
-          return result
-        })
+        setAllWeather(allWeather => (
+          {...allWeather, [propName]: propValue }
+        ))
 
       })
       
