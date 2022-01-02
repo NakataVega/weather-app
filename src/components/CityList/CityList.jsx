@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import convertUnits from 'convert-units'
 import Grid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -39,7 +40,7 @@ const CityList = ({cities, onClickCity}) => {
       const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&appid=${apikey}` 
       axios.get(url).then((response) => {
         const {data} = response
-        const temperature = parseFloat((data.main.temp - 273.15).toFixed(1))
+        const temperature = parseInt(convertUnits(data.main.temp).from("K").to("C").toFixed(0))
         const state = data.weather[0].main.toLowerCase()
         const propName = `${city}-${country}` // Ej: [Guadalajara-Mexico]
         const propValue = { temperature, state} //Ej: {temperature: 10, state:"sunny"}
