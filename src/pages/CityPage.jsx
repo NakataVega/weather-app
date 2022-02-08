@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Grid from '@material-ui/core/Grid'
 import { useParams } from 'react-router-dom'
 import CityInfo from './../components/CityInfo'
+import convertUnits from 'convert-units'
 import Weather from './../components/Weather'
 import WeatherDetails from './../components/WeatherDetails'
 import ForecastChart from './../components/ForecastChart'
@@ -9,8 +10,10 @@ import Forecast from './../components/Forecast'
 import AppFrame from './../components/AppFrame'
 import Paper from '@material-ui/core/Paper'
 import axios from 'axios'
+import moment from 'moment'
+import 'moment/locale/es-mx'
 
-const dataExample = [
+/*const dataExample = [
   {
       "dayHour": "Jue 18",
       "min": 14,
@@ -43,14 +46,23 @@ const dataExample = [
   }
 ]
 
+const forecastItemListExample = [
+  {hour: 18, state:"clear", temperature: 17, weekDay:"Jueves"},
+  {hour: 6, state:"clouds", temperature: 12, weekDay:"Viernes"},
+  {hour: 15, state:"rain", temperature: 15, weekDay:"Sabado"},
+  {hour: 11, state:"fog", temperature: 21, weekDay:"Domingo"},
+  {hour: 11, state:"thunderstorm", temperature: 23, weekDay:"Lunes"},
+]*/
+
+
 const CityPage = () => {
 
   const [data, setData] = useState(null);
   const [forecastItemList, setForecastItemList] = useState(null);
 
   const { city, countryCode } = useParams()
-  console.log("Ciudad ", city)
-  console.log("Pais ", countryCode)
+  //console.log("Ciudad ", city)
+  //console.log("Pais ", countryCode)
 
   useEffect(() => {
 
@@ -60,13 +72,51 @@ const CityPage = () => {
 
       try {
         const { data } = await axios.get(url)
-        console.log(data)
+        //console.log(data)
+
+        const toCelcius = (temp) => parseInt(convertUnits(temp).from("K").to("C"))
+
+        const daysAhead = [0, 1, 2, 3, 4, 5]
+
+        const days = daysAhead.map(d => moment().add(d, 'd'))
+
+        const dataAux = days.map(day => {
+          const tempObjArray = data.list.filter(item => {
+            const dayOfYear = moment.unix(item.dt).dayOfYear()
+            return dayOfYear === day.dayOfYear()
+          })
+
+          const temps = tempObjArray.map(item => item.main.temp)
+
+          //console.log("day.dayOfYear()", day.dayOfYear())
+          //console.log("tempObjArray ",tempObjArray)
+          
+          return( {
+            dayHour: day.format('ddd'),
+            min: toCelcius(Math.min(...temps)),
+            max: toCelcius(Math.max(...temps)),
+          })
+        })
+
+        setData(dataAux)
+
+
+        const interval = [4, 8, 12, 16, 20, 24]
+
+        const forecastItemListAux = data.list.filter((item, index) => interval.includes(index)).map(item => {
+          return ({
+            hour: moment.unix(item.dt).hour(),
+            weekDay: moment.unix(item.dt).format("dddd"),
+            state: item.weather[0].main.toLowerCase(),
+            temperature: toCelcius(item.main.temp)
+          })
+        })
+
+        setForecastItemList(forecastItemListAux)
+
       } catch (error) {
         console.log("Error", error)
       }
-
-      setData(dataExample)
-      setForecastItemList(forecastItemList)
     }
     
     getForecast()
@@ -82,13 +132,7 @@ const CityPage = () => {
   const wind = 12
 
   // const data = dataExample
-  /*const forecastItemList = [
-    {hour: 18, state:"clear", temperature: 17, weekDay:"Jueves"},
-    {hour: 6, state:"clouds", temperature: 12, weekDay:"Viernes"},
-    {hour: 15, state:"rain", temperature: 15, weekDay:"Sabado"},
-    {hour: 11, state:"fog", temperature: 21, weekDay:"Domingo"},
-    {hour: 11, state:"thunderstorm", temperature: 23, weekDay:"Lunes"},
-  ]*/
+  
 
   return (
     <AppFrame>

@@ -16,7 +16,7 @@ const MainPage = props => {
   const history = useHistory()
   const onClickHandler = (city, countryCode) => {
     //history.push permite alterar la URL por programacion
-    console.log(city, countryCode)
+    //console.log(city, countryCode)
     history.push(`/City/${countryCode}/${city}`)
   }
 
