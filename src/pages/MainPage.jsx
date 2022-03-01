@@ -8,8 +8,8 @@ const cities = [
   {city:"Guadalajara", country:"Mexico", countryCode:"MX"},
   {city:"New York City", country:"United States", countryCode:"US"},
   {city:"Amsterdam", country:"Nederlands", countryCode:"NL"},
+  {city:"Prague", country:"The Czech Republic", countryCode:"CZ"},
   {city:"Madrid", country:"Spain", countryCode:"ES"},
-  {city:"Prague", country:"The Czech Republic", countryCode:"CZ"}
 ]
 
 const MainPage = props => {
