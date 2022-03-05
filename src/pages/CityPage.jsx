@@ -1,15 +1,15 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import CityInfo from './../components/CityInfo'
 import Weather from './../components/Weather'
 import WeatherDetails from './../components/WeatherDetails'
 import ForecastChart from './../components/ForecastChart'
 import Forecast from './../components/Forecast'
 import AppFrame from './../components/AppFrame'
-import Paper from '@material-ui/core/Paper'
+//import Paper from '@material-ui/core/Paper'
 import useCityPage from './../hooks/useCityPage'
 import 'moment/locale/es-mx'
-import { ListItemSecondaryAction } from '@material-ui/core'
 
 const CityPage = () => {
 
@@ -28,7 +28,7 @@ const CityPage = () => {
 
   return (
     <AppFrame>
-      <Paper elevation={5}>
+      
         <Grid
           container
           justifyContent='center'
@@ -48,19 +48,24 @@ const CityPage = () => {
             <Grid item xs={4}>
               <WeatherDetails humidity={humidity} wind={wind}/>
             </Grid>
-            <Grid item xs={12}>
-              {
-                chartData && <ForecastChart data={chartData}/>
-              }
-            </Grid>
-            <Grid item xs={12}>
-              {
-                forecastItemList && <Forecast forecastItemList={forecastItemList}/>
-              }
-            </Grid>
+          </Grid>
+          <Grid item>
+            {
+              !chartData && !forecastItemList && <LinearProgress />
+            }
+          </Grid>
+          <Grid item xs={12}>
+            {
+              chartData && <ForecastChart data={chartData}/>
+            }
+          </Grid>
+          <Grid item xs={12}>
+            {
+              forecastItemList && <Forecast forecastItemList={forecastItemList}/>
+            }
           </Grid>
         </Grid>
-      </Paper>
+    
     </AppFrame>
   )
 }
