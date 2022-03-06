@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo } from 'react'
 import Grid from '@material-ui/core/Grid'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import CityInfo from './../components/CityInfo'
@@ -19,7 +19,10 @@ const CityPage = () => {
 
   const { city, countryCode, chartData, forecastItemList} = useCityPage()
   
-  const { allWeather } = useCityList([{city, countryCode }])
+  const cities = useMemo(() => ([{city, countryCode }]), [city, countryCode])
+  //Use Memo, devuelve un valor memorizado, si el arreglo del segundo parametro no cambia, devolvera lo mismo y asi se evitan peticiones innecesarias
+
+  const { allWeather } = useCityList(cities)
 
   const weather = allWeather[getCityCode(city, countryCode)]
 
