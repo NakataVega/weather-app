@@ -9,19 +9,25 @@ import Forecast from './../components/Forecast'
 import AppFrame from './../components/AppFrame'
 //import Paper from '@material-ui/core/Paper'
 import useCityPage from './../hooks/useCityPage'
+import useCityList from './../hooks/useCityList'
+import { getCityCode } from './../utils/utils'
+import { getCountryNameByCountryCode } from './../utils/serviceCities'
+
 import 'moment/locale/es-mx'
 
 const CityPage = () => {
 
-  const { city, chartData, forecastItemList} = useCityPage()
-  //const city = "Guadalajara"
-  //const countryCode = "MX"
+  const { city, countryCode, chartData, forecastItemList} = useCityPage()
+  
+  const { allWeather } = useCityList([{city, countryCode }])
 
-  const country = "México"
-  const state = "clear"
-  const temperature = 19
-  const humidity =  43
-  const wind = 12
+  const weather = allWeather[getCityCode(city, countryCode)]
+
+  const country = getCountryNameByCountryCode(countryCode)
+  const state = weather && weather.state
+  const temperature = weather && weather.temperature
+  const humidity =  weather && weather.humidity
+  const wind = weather && weather.wind
 
   // const data = dataExample
   
@@ -46,7 +52,10 @@ const CityPage = () => {
               <Weather state={state} temperature={temperature}/>
             </Grid>
             <Grid item xs={4}>
-              <WeatherDetails humidity={humidity} wind={wind}/>
+              {
+                humidity && wind &&
+                <WeatherDetails humidity={humidity} wind={wind}/>
+              }
             </Grid>
           </Grid>
           <Grid item>
