@@ -1,4 +1,4 @@
-import React, {useMemo } from 'react'
+import React, { useMemo } from 'react'
 import Grid from '@material-ui/core/Grid'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import CityInfo from './../components/CityInfo'
@@ -15,16 +15,24 @@ import { getCountryNameByCountryCode } from './../utils/serviceCities'
 
 import 'moment/locale/es-mx'
 
-const CityPage = () => {
+const CityPage = ({actions, data}) => {
 
-  const { city, countryCode, chartData, forecastItemList} = useCityPage()
+  const { allWeather, allChartData, allForecastItemList } = data
+  const { onSetAllWeather, onSetChartData, onSetForecastItemList } = actions
+
+  const { city, countryCode } = useCityPage(allChartData, allForecastItemList, onSetChartData, onSetForecastItemList)
   
   const cities = useMemo(() => ([{city, countryCode }]), [city, countryCode])
   //Use Memo, devuelve un valor memorizado, si el arreglo del segundo parametro no cambia, devolvera lo mismo y asi se evitan peticiones innecesarias
 
-  const { allWeather } = useCityList(cities)
+  useCityList(cities, allWeather, onSetAllWeather)
 
-  const weather = allWeather[getCityCode(city, countryCode)]
+  const cityCode = getCityCode(city, countryCode)
+
+  const weather = allWeather[cityCode]
+  const chartData = allChartData[cityCode]
+  const forecastItemList = allForecastItemList[cityCode]
+
 
   const country = getCountryNameByCountryCode(countryCode)
   const state = weather && weather.state

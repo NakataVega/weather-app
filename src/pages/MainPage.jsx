@@ -5,7 +5,7 @@ import CityList from './../components/CityList'
 import AppFrame from './../components/AppFrame'
 import { getCities } from './../utils/serviceCities'
 
-const MainPage = props => {
+const MainPage = ({ actions, data }) => {
   const history = useHistory()
   const onClickHandler = (city, countryCode) => {
     //history.push permite alterar la URL por programacion
@@ -16,7 +16,9 @@ const MainPage = props => {
   return (
     <AppFrame>
       <Paper elevation={3}>
-        <CityList 
+        <CityList
+          data={data}
+          actions={actions}
           cities={getCities()}
           onClickCity={onClickHandler}
         />
