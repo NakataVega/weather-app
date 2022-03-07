@@ -18,14 +18,14 @@ import 'moment/locale/es-mx'
 const CityPage = ({actions, data}) => {
 
   const { allWeather, allChartData, allForecastItemList } = data
-  const { onSetAllWeather, onSetChartData, onSetForecastItemList } = actions
+  //const { onSetAllWeather, onSetChartData, onSetForecastItemList } = actions
 
-  const { city, countryCode } = useCityPage(allChartData, allForecastItemList, onSetChartData, onSetForecastItemList)
+  const { city, countryCode } = useCityPage(allChartData, allForecastItemList, actions)
   
   const cities = useMemo(() => ([{city, countryCode }]), [city, countryCode])
   //Use Memo, devuelve un valor memorizado, si el arreglo del segundo parametro no cambia, devolvera lo mismo y asi se evitan peticiones innecesarias
 
-  useCityList(cities, allWeather, onSetAllWeather)
+  useCityList(cities, allWeather, actions)
 
   const cityCode = getCityCode(city, countryCode)
 
