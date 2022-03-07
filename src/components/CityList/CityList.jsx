@@ -9,13 +9,9 @@ import CityInfo from './../CityInfo'
 import Weather from './../Weather'
 import { getCityCode } from './../../utils/utils'
 
-//renderCityAndCountry se va a convertir en una funcion que retorna otra funcion
-const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
-  const {city, countryCode, country} = cityAndCountry
-  //const {temperature, state} = weather
+const CityListItem = React.memo(({city, countryCode, country, weather, eventOnClickCity}) => {
   return (
     <ListItem 
-      key={getCityCode(city, countryCode)} 
       onClick={() => eventOnClickCity(city, countryCode) }
       button
     >
@@ -29,12 +25,17 @@ const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
       </Grid>
     </ListItem>
   )
+})
+
+
+//renderCityAndCountry se va a convertir en una funcion que retorna otra funcion
+const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
+  const {city, countryCode} = cityAndCountry
+  return <CityListItem key={getCityCode(city, countryCode)} eventOnClickCity={eventOnClickCity} weather={weather} {...cityAndCountry} />
 }
 
 const CityList = ({cities, onClickCity, actions, data}) => {
-
   const { allWeather } = data
-  //const { onSetAllWeather } = actions
 
   const { error, setError } = useCityList(cities, allWeather, actions)
   
@@ -63,4 +64,4 @@ CityList.propTypes = {
   onClickCity: PropTypes.func.isRequired,
 }
 
-export default CityList
+export default React.memo(CityList)
